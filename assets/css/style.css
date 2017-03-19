@@ -1,0 +1,52 @@
+@font-face { font-family: LotR; src: url('fonts/RINGM___.TTF') format("truetype"); } 
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+body {
+	background-image: url(../images/background.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	font-family: 'Raleway', sans-serif;
+}
+
+.LotR {
+		font-family: 'LotR', sans-serif;
+}
+
+#start-button, 
+#again-button {
+	padding: .75rem 2.5rem;
+	text-decoration: none;
+	color: black;
+	border: 1px solid black;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.darker {
+	background-color: rgba(255, 255, 203, 0.6);
+	font-size: 1.2rem;
+}
+
+.shadow {
+	-webkit-box-shadow: 2px 2px 6px 0px rgba(87,86,87,0.7);
+	-moz-box-shadow: 2px 2px 6px 0px rgba(87,86,87,0.7);
+	box-shadow: 2px 2px 6px 0px rgba(87,86,87,0.7);
+}
+
+#start-button:hover, 
+#again-button:hover,
+.hover:hover {
+	background-color: rgba(44, 133, 141, 0.6);
+	border: 2px solid rgba(0, 64, 86, 0.6);
+	font-weight: bold;
+	color: white;
+}
+
+.invisible {
+	display: none;
+}
+
+#image  {
+	padding-bottom: 2%;
+}
