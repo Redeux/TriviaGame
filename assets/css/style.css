@@ -1,9 +1,11 @@
 @font-face { font-family: LotR; src: url('fonts/RINGM___.TTF') format("truetype"); } 
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
 body {
-	background-image: url(../images/background.jpg);
-	background-repeat: no-repeat;
-	background-size: cover;
+	background-image: url(../images/background.jpg) no-repeat center center fixed;
+ 	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
 	font-family: 'Raleway', sans-serif;
 }
 
