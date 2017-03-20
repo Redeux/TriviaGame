@@ -1,3 +1,4 @@
+//Main Function, everything inside hidden from user
 $(function() {
   //Declare Variables
   var question;
@@ -83,6 +84,7 @@ $(function() {
   })
   
   $('.option').click(function(){
+        
         endQuestion($(this).attr('data-id'), timerId);
   })   
   
@@ -126,7 +128,7 @@ $(function() {
       $('#incorrect').text(question.question + ' - ' + question.options[question.answer]);
     }
 
-    $('#image').html('<img src=\'' + question.giphy + '\'>');
+    $('#image').html('<img src=\'' + question.giphy + '\' class=\'img-fluid\'>');
 
     var timeOutId = setTimeout(function() {
         $('#answer-box').toggleClass('invisible');
@@ -158,10 +160,10 @@ $(function() {
     $('#answer').html('You got ' + correctCount + ' out of ' + questionTotal + ' questions correct');
     if (correctCount >= 7) {
       $('#incorrect').html('Great Job!');
-      $('#image').html('<img src=\'https://media.giphy.com/media/WJEtSz2gobd6M/giphy.gif\'>');
+      $('#image').html('<img src=\'https://media.giphy.com/media/WJEtSz2gobd6M/giphy.gif\' class=\'img-fluid\'>');
     } else {
       $('#incorrect').html('Better luck next time!');
-      $('#image').html('<img src=\'https://media.giphy.com/media/RX3vhj311HKLe/giphy.gif\'>');
+      $('#image').html('<img src=\'https://media.giphy.com/media/RX3vhj311HKLe/giphy.gif\' class=\'img-fluid\'>');
     }
     $('#again').toggleClass('invisible');
 
