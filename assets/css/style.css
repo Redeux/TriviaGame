@@ -54,5 +54,8 @@ body {
 
 #image  {
 	padding-bottom: 2%;
+}
+
+#image img {
 	max-width: 100%;
 }
