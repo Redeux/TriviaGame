@@ -1,11 +1,11 @@
 //Main Function, everything inside hidden from user
 $(function() {
   //Declare Variables
-  var question;
-  var questionIndex;
-  var timerId = 0;
-  var correctCount;
-  var questionCatalog = [{
+  let question;
+  let questionIndex;
+  let timerId = 0;
+  let correctCount;
+  const questionCatalog = [{
       question: 'Who said: \"I would have followed you, my brother...my captain...my king.\”',
       options: ['Legolas', 'Pippin', 'Aragorn', 'Boromir'],
       answer: 3,
@@ -66,8 +66,13 @@ $(function() {
       giphy: 'https://media.giphy.com/media/yeeHsczwxqyTC/giphy.gif'
     }
   ]  
-  var gameQuestionCatalog;
-  var questionTotal = questionCatalog.length;
+  let gameQuestionCatalog;
+  let questionTotal = questionCatalog.length;
+
+  //Mobile highlight fix
+  $(document).on('tap', function() {
+    $('#tap-style').attr('href', $('#tap-style').attr('data-tap'));
+  })
 
   //Game Click Logic
   $('#start-button').click(function(event){
@@ -84,7 +89,6 @@ $(function() {
   })
   
   $('.option').click(function(){
-        
         endQuestion($(this).attr('data-id'), timerId);
   })   
   
@@ -104,8 +108,8 @@ $(function() {
     $('#question').text(question.question);
 
     //Populate Options
-    for (var i=0; i < question.options.length; i++) {
-      var activeCol = $('div[data-id=' + i + ']');
+    for (let i=0; i < question.options.length; i++) {
+      let activeCol = $('div[data-id=' + i + ']');
       activeCol.text(question.options[i]);
     }
 
@@ -121,16 +125,19 @@ $(function() {
     $('#answer-box').toggleClass('invisible');
     
     if (guess == question.answer) {
-      $('#answer').html('<h2>Yep!</h2>');
+      $('#answer').html($('<h2>').text('Yep!'));
       correctCount++;
     } else {
-      $('#answer').html('<h2>Nope!</h2>');
+      $('#answer').html($('<h2>').text('Nope!'));
       $('#incorrect').text(question.question + ' - ' + question.options[question.answer]);
     }
 
-    $('#image').html('<img src=\'' + question.giphy + '\' class=\'img-fluid\'>');
+    $('#image').html($('<img>').attr({
+      src: question.giphy,
+      'class': 'img-fluid'
+    }));
 
-    var timeOutId = setTimeout(function() {
+    let timeOutId = setTimeout(function() {
         $('#answer-box').toggleClass('invisible');
         $('image').html('');
         $('#incorrect').html('');
@@ -143,7 +150,7 @@ $(function() {
   }
 
   function startQuestion(seconds) {
-    var timeCount = seconds;
+    let timeCount = seconds;
     $('#timer').text('Time left: ' + timeCount);
     $('#question-box').toggleClass('invisible');
    
@@ -160,10 +167,16 @@ $(function() {
     $('#answer').html('You got ' + correctCount + ' out of ' + questionTotal + ' questions correct');
     if (correctCount >= 7) {
       $('#incorrect').html('Great Job!');
-      $('#image').html('<img src=\'https://media.giphy.com/media/WJEtSz2gobd6M/giphy.gif\' class=\'img-fluid\'>');
+      $('#image').html($('<img>').attr({
+        src: 'https://media.giphy.com/media/WJEtSz2gobd6M/giphy.gif',
+        'class': 'img-fluid'
+      }));
     } else {
       $('#incorrect').html('Better luck next time!');
-      $('#image').html('<img src=\'https://media.giphy.com/media/RX3vhj311HKLe/giphy.gif\' class=\'img-fluid\'>');
+      $('#image').html($('<img>').attr({
+        src: 'https://media.giphy.com/media/RX3vhj311HKLe/giphy.gif',
+        'class': 'img-fluid'
+      }));
     }
     $('#again').toggleClass('invisible');
 

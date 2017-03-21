@@ -1,0 +1,14 @@
+
+#start-button:hover, 
+#again-button:hover,
+.hover:hover {
+	background-color: rgba(255, 255, 203, 0.6);
+	font-weight: normal;
+	color: black;
+	border: none;
+}
+
+#start-button:hover, 
+#again-button:hover {
+	border: 1px solid black;
+}
