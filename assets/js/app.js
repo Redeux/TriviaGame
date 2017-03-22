@@ -136,10 +136,13 @@ $(function() {
     clearInterval(id);
     //Remove the question from the available options
     gameQuestionCatalog.splice(questionIndex, 1);
-    //Tell the user if they got it correct or incorrect
+    //Tell the user if they got it correct, incorrect, or were out of time
     if (guess == question.answer) {
       $('#answer').html($('<h2>').text('Yep!'));
       correctCount++;
+    } else if (guess === null) {
+      $('#answer').html($('<h2>').text('Time\'s Up!'));
+      $('#incorrect').text(question.question + ' - ' + question.options[question.answer]);
     } else {
       $('#answer').html($('<h2>').text('Nope!'));
       $('#incorrect').text(question.question + ' - ' + question.options[question.answer]);
