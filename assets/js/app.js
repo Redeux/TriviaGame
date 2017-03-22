@@ -70,17 +70,17 @@ $(function() {
   let questionTotal = questionCatalog.length;
 
   //Hover styling through JQuery since CSS :hover doesn't play nice with touchscreen
-  $('#start-button, #again-button, .hover').mouseenter(function() {
-    $(this).css('background', 'rgba(44, 133, 141, 0.6)')
-    .css('border', '2px solid rgba(0, 64, 86, 0.6)')
-    .css('font-weight', 'bold')
-    .css('color', 'white');
-  }).mouseleave(function() {
-    $(this).css('background', 'rgba(255, 255, 203, 0.6)')
-    .css('border', 'none')
-    .css('font-weight', 'normal')
-    .css('color', 'black');
-  })
+  // $('#start-button, #again-button, .hover').mouseenter(function() {
+  //   $(this).css('background', 'rgba(44, 133, 141, 0.6)')
+  //   .css('border', '2px solid rgba(0, 64, 86, 0.6)')
+  //   .css('font-weight', 'bold')
+  //   .css('color', 'white');
+  // }).mouseleave(function() {
+  //   $(this).css('background', 'rgba(255, 255, 203, 0.6)')
+  //   .css('border', 'none')
+  //   .css('font-weight', 'normal')
+  //   .css('color', 'black');
+  // })
   
   //Game Click Logic
   $('#start-button').click(function(event) {
@@ -94,16 +94,17 @@ $(function() {
     startNewGame();
     $('#again').toggleClass('invisible');
     $('#answer-box').toggleClass('invisible');
+    $('#incorrect').html('');
   })
   
   $('.option').click(function() {
     endQuestion($(this).attr('data-id'), timerId);
   }).on('touchstart', function(event) {
-    //Stop touch from doing mouse stuff
+    //Stop touch from doing mouse actions and enabling the hover effect which sticks around for the next question
     event.preventDefault();
-  }).on('touchend', function() {
+  })/*.on('touchend', function() {
     endQuestion($(this).attr('data-id'), timerId);
-  })
+  })*/
   
   //Functions
   function startNewGame() {
@@ -152,7 +153,7 @@ $(function() {
     //After 5 seconds clear/hide the answer div and check to see if the game is over or go the next question
     let timeOutId = setTimeout(function() {
         $('#answer-box').toggleClass('invisible');
-        $('image').html('');
+        //$('image').html('');
         $('#incorrect').html('');
         if (gameQuestionCatalog.length > 0) {
           newQuestion();
