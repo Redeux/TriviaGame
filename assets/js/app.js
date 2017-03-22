@@ -69,31 +69,40 @@ $(function() {
   let gameQuestionCatalog;
   let questionTotal = questionCatalog.length;
 
-  //Mobile highlight fix
-  $(document).on('tap', function() {
-    $('#tap-style').attr('href', $('#tap-style').attr('data-tap'));
-  })
+  //Hover styling through JQuery since CSS :hover doesn't play nice with touchscreen
+  $('#start-button, #again-button, .hover').mouseenter(function() {
+    $(this).css('background', 'rgba(44, 133, 141, 0.6)')
+    .css('border', '2px solid rgba(0, 64, 86, 0.6)')
+    .css('font-weight', 'bold')
+    .css('color', 'white');
+  }).mouseleave(function() {
+    $(this).css('background', 'rgba(255, 255, 203, 0.6)')
+    .css('border', 'none')
+    .css('font-weight', 'normal')
+    .css('color', 'black');
+  });
 
   //Game Click Logic
-  $('#start-button').click(function(event){
+  $('#start-button').click(function(event) {
     event.preventDefault();
     startNewGame();
     $('#start-button').toggleClass('invisible');
   })
 
-  $('#again-button').click(function(event){
+  $('#again-button').click(function(event) {
       event.preventDefault();
       startNewGame();
       $('#again').toggleClass('invisible');
       $('#answer-box').toggleClass('invisible');
   })
   
-  $('.option').click(function(){
+  $('.option').click(function() {
         endQuestion($(this).attr('data-id'), timerId);
   })   
   
   //Functions
   function startNewGame() {
+    //create a mutable array specific to this 1 game from the catalog of questions 
     gameQuestionCatalog = Array.from(questionCatalog);
     correctCount = 0;
     newQuestion();
@@ -103,27 +112,26 @@ $(function() {
     //Generate a random question
     questionIndex = Math.floor(Math.random() * gameQuestionCatalog.length);
     question = gameQuestionCatalog[questionIndex];
-
-    //Populate Question
+    //Populate question
     $('#question').text(question.question);
-
-    //Populate Options
+    //Populate the answer options
     for (let i=0; i < question.options.length; i++) {
       let activeCol = $('div[data-id=' + i + ']');
       activeCol.text(question.options[i]);
     }
-
+    //Start the question and timer
     startQuestion(15);
   }
 
   function endQuestion(guess, id) {
+    //Stop the timer
     clearInterval(id);
-
+    //Remove the question from the available options
     gameQuestionCatalog.splice(questionIndex, 1);
-
+    //Hide the question div and show the answer div
     $('#question-box').toggleClass('invisible');
     $('#answer-box').toggleClass('invisible');
-    
+    //Tell the user if they got it correct or incorrect
     if (guess == question.answer) {
       $('#answer').html($('<h2>').text('Yep!'));
       correctCount++;
@@ -131,12 +139,12 @@ $(function() {
       $('#answer').html($('<h2>').text('Nope!'));
       $('#incorrect').text(question.question + ' - ' + question.options[question.answer]);
     }
-
+    //Display the corresponding gif
     $('#image').html($('<img>').attr({
       src: question.giphy,
       'class': 'img-fluid'
     }));
-
+    //After 5 seconds clear/hide the answer div and check to see if the game is over or go the next question
     let timeOutId = setTimeout(function() {
         $('#answer-box').toggleClass('invisible');
         $('image').html('');
@@ -151,20 +159,23 @@ $(function() {
 
   function startQuestion(seconds) {
     let timeCount = seconds;
+    //Populate the timer and show the question div
     $('#timer').text('Time left: ' + timeCount);
     $('#question-box').toggleClass('invisible');
-   
+    //Start and update the countdown on the page
     timerId = setInterval(function() {
       timeCount--;
       $('#timer').text('Time left: ' + timeCount);
-
+      //If no answer is given in time submit the question with no answer
       if (timeCount === 0) endQuestion(null, timerId);
     }, 1000);  
   }
 
   function endGame() {
+    //Show the answer div and tell the user how many out of the total questions they got correct
     $('#answer-box').toggleClass('invisible');
     $('#answer').html('You got ' + correctCount + ' out of ' + questionTotal + ' questions correct');
+    //If they got 7 or more correct show them the great job gif, if not show them the 'you have no power here' gif
     if (correctCount >= 7) {
       $('#incorrect').html('Great Job!');
       $('#image').html($('<img>').attr({
@@ -178,6 +189,7 @@ $(function() {
         'class': 'img-fluid'
       }));
     }
+    //make the play again button visible
     $('#again').toggleClass('invisible');
 
   }
