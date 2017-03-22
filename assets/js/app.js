@@ -95,7 +95,7 @@ $(function() {
   }).on('touchstart', function(event) {
     //Stop touch from doing mouse actions and enabling the hover effect which sticks around for the next game
     event.preventDefault();
-  })on('touchend', function() {
+  }).on('touchend', function() {
     resetGame();
   })
   
@@ -104,7 +104,7 @@ $(function() {
   }).on('touchstart', function(event) {
     //Stop touch from doing mouse actions and enabling the hover effect which sticks around for the next question
     event.preventDefault();
-  })on('touchend', function() {
+  }).on('touchend', function() {
     endQuestion($(this).attr('data-id'), timerId);
   })
   
