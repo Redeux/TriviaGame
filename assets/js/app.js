@@ -69,6 +69,11 @@ $(function() {
   let gameQuestionCatalog;
   let questionTotal = questionCatalog.length;
 
+  //Stop touchscreen from doing mouse stuff
+  $(document).on('touchstart', function() {
+
+  })
+
   //Hover styling through JQuery since CSS :hover doesn't play nice with touchscreen
   $('#start-button, #again-button, .hover').mouseenter(function() {
     $(this).css('background', 'rgba(44, 133, 141, 0.6)')
@@ -80,8 +85,10 @@ $(function() {
     .css('border', 'none')
     .css('font-weight', 'normal')
     .css('color', 'black');
-  });
-
+  })
+  
+  //Stop touch from doing mouse stuff
+  
   //Game Click Logic
   $('#start-button').click(function(event) {
     event.preventDefault();
@@ -90,14 +97,14 @@ $(function() {
   })
 
   $('#again-button').click(function(event) {
-      event.preventDefault();
-      startNewGame();
-      $('#again').toggleClass('invisible');
-      $('#answer-box').toggleClass('invisible');
+    event.preventDefault();
+    startNewGame();
+    $('#again').toggleClass('invisible');
+    $('#answer-box').toggleClass('invisible');
   })
   
   $('.option').click(function() {
-        endQuestion($(this).attr('data-id'), timerId);
+    endQuestion($(this).attr('data-id'), timerId);
   })   
   
   //Functions
