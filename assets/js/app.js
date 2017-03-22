@@ -69,10 +69,17 @@ $(function() {
   let gameQuestionCatalog;
   let questionTotal = questionCatalog.length;
   
+  //Dynamic Styling Logic
   $('#start-button, #again-button, .hover').on('mouseenter touchstart', function() {
-    applyHighlight($(this));
+    $(this).css('background', 'rgba(44, 133, 141, 0.6)')
+    .css('border', '2px solid rgba(0, 64, 86, 0.6)')
+    .css('font-weight', 'bold')
+    .css('color', 'white');
   }).on('mouseleave touchend', function() {
-    removeHighlight($(this));
+    $(this).css('background', 'rgba(255, 255, 203, 0.6)')
+    .css('border', 'none')
+    .css('font-weight', 'normal')
+    .css('color', 'black');;
   })
 
   //Game Click Logic
@@ -101,7 +108,7 @@ $(function() {
     endQuestion($(this).attr('data-id'), timerId);
   })
   
-  //Game Functions
+  //Functions
   function startNewGame() {
     //create a mutable array specific to this 1 game from the catalog of questions 
     gameQuestionCatalog = Array.from(questionCatalog);
@@ -202,20 +209,5 @@ $(function() {
     $('#answer-box').toggleClass('invisible');
     $('#incorrect').html('');
     startNewGame();
-  }
-
-  //Styling Functions
-  function applyHighlight(elem) {
-    elem.css('background', 'rgba(44, 133, 141, 0.6)')
-    .css('border', '2px solid rgba(0, 64, 86, 0.6)')
-    .css('font-weight', 'bold')
-    .css('color', 'white');
-  }
-
-  function removeHighlight(elem) {
-    elem.css('background', 'rgba(255, 255, 203, 0.6)')
-    .css('border', 'none')
-    .css('font-weight', 'normal')
-    .css('color', 'black');
   }
 });
