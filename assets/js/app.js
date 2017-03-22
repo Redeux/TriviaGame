@@ -70,17 +70,17 @@ $(function() {
   let questionTotal = questionCatalog.length;
 
   //Hover styling through JQuery since CSS :hover doesn't play nice with touchscreen
-  // $('#start-button, #again-button, .hover').mouseenter(function() {
-  //   $(this).css('background', 'rgba(44, 133, 141, 0.6)')
-  //   .css('border', '2px solid rgba(0, 64, 86, 0.6)')
-  //   .css('font-weight', 'bold')
-  //   .css('color', 'white');
-  // }).mouseleave(function() {
-  //   $(this).css('background', 'rgba(255, 255, 203, 0.6)')
-  //   .css('border', 'none')
-  //   .css('font-weight', 'normal')
-  //   .css('color', 'black');
-  // })
+  $('#start-button, #again-button, .hover').mouseenter(function() {
+    $(this).css('background', 'rgba(44, 133, 141, 0.6)')
+    .css('border', '2px solid rgba(0, 64, 86, 0.6)')
+    .css('font-weight', 'bold')
+    .css('color', 'white');
+  }).mouseleave(function() {
+    $(this).css('background', 'rgba(255, 255, 203, 0.6)')
+    .css('border', 'none')
+    .css('font-weight', 'normal')
+    .css('color', 'black');
+  })
   
   //Game Click Logic
   $('#start-button').click(function(event) {
@@ -91,10 +91,12 @@ $(function() {
 
   $('#again-button').click(function(event) {
     event.preventDefault();
-    startNewGame();
-    $('#again').toggleClass('invisible');
-    $('#answer-box').toggleClass('invisible');
-    $('#incorrect').html('');
+    resetGame();
+  }).on('touchstart', function(event) {
+    //Stop touch from doing mouse actions and enabling the hover effect which sticks around for the next game
+    event.preventDefault();
+  })on('touchend', function() {
+    resetGame();
   })
   
   $('.option').click(function() {
@@ -102,9 +104,9 @@ $(function() {
   }).on('touchstart', function(event) {
     //Stop touch from doing mouse actions and enabling the hover effect which sticks around for the next question
     event.preventDefault();
-  })/*.on('touchend', function() {
+  })on('touchend', function() {
     endQuestion($(this).attr('data-id'), timerId);
-  })*/
+  })
   
   //Functions
   function startNewGame() {
@@ -134,9 +136,6 @@ $(function() {
     clearInterval(id);
     //Remove the question from the available options
     gameQuestionCatalog.splice(questionIndex, 1);
-    //Hide the question div and show the answer div
-    $('#question-box').toggleClass('invisible');
-    $('#answer-box').toggleClass('invisible');
     //Tell the user if they got it correct or incorrect
     if (guess == question.answer) {
       $('#answer').html($('<h2>').text('Yep!'));
@@ -150,6 +149,9 @@ $(function() {
       src: question.giphy,
       'class': 'img-fluid'
     }));
+    //Hide the question div and show the answer div
+    $('#question-box').toggleClass('invisible');
+    $('#answer-box').toggleClass('invisible');
     //After 5 seconds clear/hide the answer div and check to see if the game is over or go the next question
     let timeOutId = setTimeout(function() {
         $('#answer-box').toggleClass('invisible');
@@ -197,6 +199,11 @@ $(function() {
     }
     //make the play again button visible
     $('#again').toggleClass('invisible');
-
+  }
+  function resetGame() {
+    $('#again').toggleClass('invisible');
+    $('#answer-box').toggleClass('invisible');
+    $('#incorrect').html('');
+    startNewGame();
   }
 });
